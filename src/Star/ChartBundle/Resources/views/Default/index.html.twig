@@ -1,0 +1,98 @@
+{# On étend notre layout #}
+{% extends "::layout.html.twig" %}
+
+
+{# Dans notre layout, il faut définir le block body #}
+{% block body %}
+<div class="container">
+	<div id="dashboard_div">
+	    <div class="well">
+		<div id="control_div"><!-- Controls renders here --></div>
+	    </div>
+	    <div class="well">
+		<div id="line_div"><!-- Line chart renders here --></div>           
+	    </div>
+	    <div class="well">
+		   <div id="table_div"><!-- Table renders here --></div>
+	    </div>
+	</div>
+</div>
+
+
+{% endblock %}
+
+
+
+{% block script %}
+
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    google.load('visualization', '1', { packages : ['controls'] } );
+    google.setOnLoadCallback(createTable);
+    
+    function createTable() {
+      // Create the dataset (DataTable)
+      var myData = new google.visualization.DataTable();
+      
+      myData.addColumn('datetime', 'Date');
+      myData.addColumn('number', 'Différence');
+
+
+      var data = new Array();
+      {% for arretbus in arretbuses %}
+          data.push( 
+               [
+                    new Date(
+                   		{{ 20 ~ arretbus.dateRequete|date("y")|number_format}}, 
+                   		{{  arretbus.dateRequete|date("m")|number_format}}, 
+                   		{{  arretbus.dateRequete|date("d")|number_format}}, 
+                   		{{  arretbus.dateRequete|date("H")|number_format}}, 
+                   		{{  arretbus.dateRequete|date("i")|number_format}}, 
+                   		{{  arretbus.dateRequete|date("s")|number_format}}
+                   	),
+	    	        {{ arretbus.diffTR|number_format(0, '', '') }}
+                ]
+          );
+      {% endfor %}
+
+      myData.addRows(data);
+    
+      // Create a dashboard.
+      var dash_container = document.getElementById('dashboard_div'),
+        myDashboard = new google.visualization.Dashboard(dash_container);
+    
+      // Create a date range slider
+      var myDateSlider = new google.visualization.ControlWrapper({
+        'controlType': 'ChartRangeFilter',
+        'containerId': 'control_div',
+        'options': {
+          'filterColumnLabel': 'Date'
+        }
+      });
+    
+      // Table visualization
+      var myTable = new google.visualization.ChartWrapper({
+        'chartType' : 'Table',
+        'containerId' : 'table_div'
+      });
+    
+      // Bind myTable to the dashboard, and to the controls
+      // this will make sure our table is update when our date changes
+      myDashboard.bind(myDateSlider, myTable);
+    
+      // Line chart visualization
+      var myLine = new google.visualization.ChartWrapper({
+        'chartType' : 'ColumnChart',
+        'containerId' : 'line_div',
+      });
+      
+      // Bind myLine to the dashboard, and to the controls
+      // this will make sure our line chart is update when our date changes
+      myDashboard.bind(myDateSlider, myLine );
+    
+      myDashboard.draw(myData);
+    }
+    </script>
+   
+{% endblock %}
+
