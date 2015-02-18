@@ -10,42 +10,55 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class ligne
 {
 	/**
-     	* @MongoDB\Id
-    	 */
-    	protected $id;
+ 	* @MongoDB\Id
+	 */
+	protected $id;
 
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $agence;
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $numero;
-    	/**
-     	* @MongoDB\String
-    	 */
+	/**
+	 * @MongoDB\String
+	 */
+	protected $id_ligne;
+	
+	/**
+ 	* @MongoDB\String
+	 */
+    protected $id_agency;
+	/**
+ 	* @MongoDB\String
+	 */
+	protected $short_name;
+	/**
+ 	* @MongoDB\String
+	 */
 	protected $long_name;
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $type_bus;
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $route_type;
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $route_url;
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $couleur_font;
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $couleur_texte;
+	/**
+ 	* @MongoDB\String
+	 */
+	protected $desc;
+	/**
+ 	* @MongoDB\String
+	 */
+	protected $type;
+	/**
+ 	* @MongoDB\String
+	 */
+	protected $url;
+	/**
+ 	* @MongoDB\String
+	 */
+	protected $color;
+	/**
+ 	* @MongoDB\String
+	 */
+	protected $text_color;
+
+	
+	public function __construct()
+	{
+	   
+	}
+	
+
 
     /**
      * Get id
@@ -58,51 +71,73 @@ class ligne
     }
 
     /**
-     * Set agence
+     * Set id_ligne
      *
-     * @param string $agence
+     * @param string $idLigne
      * @return self
      */
-    public function setAgence($agence)
+    public function setIdLigne($idLigne)
     {
-        $this->agence = $agence;
+        $this->id_ligne = $idLigne;
         return $this;
     }
 
     /**
-     * Get agence
+     * Get id_ligne
      *
-     * @return string $agence
+     * @return string $idLigne
      */
-    public function getAgence()
+    public function getIdLigne()
     {
-        return $this->agence;
+        return $this->id_ligne;
     }
 
     /**
-     * Set numero
+     * Set id_agency
      *
-     * @param string $numero
+     * @param string $idAgency
      * @return self
      */
-    public function setNumero($numero)
+    public function setIdAgency($idAgency)
     {
-        $this->numero = $numero;
+        $this->id_agency = $idAgency;
         return $this;
     }
 
     /**
-     * Get numero
+     * Get id_agency
      *
-     * @return string $numero
+     * @return string $idAgency
      */
-    public function getNumero()
+    public function getIdAgency()
     {
-        return $this->numero;
+        return $this->id_agency;
     }
 
     /**
-     * Set longName
+     * Set short_name
+     *
+     * @param string $shortName
+     * @return self
+     */
+    public function setShortName($shortName)
+    {
+        $this->short_name = $shortName;
+        return $this;
+    }
+
+    /**
+     * Get short_name
+     *
+     * @return string $shortName
+     */
+    public function getShortName()
+    {
+        return $this->short_name;
+    }
+
+    /**
+     * Set long_name
      *
      * @param string $longName
      * @return self
@@ -114,7 +149,7 @@ class ligne
     }
 
     /**
-     * Get longName
+     * Get long_name
      *
      * @return string $longName
      */
@@ -124,112 +159,112 @@ class ligne
     }
 
     /**
-     * Set typeBus
+     * Set desc
      *
-     * @param string $typeBus
+     * @param string $desc
      * @return self
      */
-    public function setTypeBus($typeBus)
+    public function setDesc($desc)
     {
-        $this->type_bus = $typeBus;
+        $this->desc = $desc;
         return $this;
     }
 
     /**
-     * Get typeBus
+     * Get desc
      *
-     * @return string $typeBus
+     * @return string $desc
      */
-    public function getTypeBus()
+    public function getDesc()
     {
-        return $this->type_bus;
+        return $this->desc;
     }
 
     /**
-     * Set routeType
+     * Set type
      *
-     * @param string $routeType
+     * @param string $type
      * @return self
      */
-    public function setRouteType($routeType)
+    public function setType($type)
     {
-        $this->route_type = $routeType;
+        $this->type = $type;
         return $this;
     }
 
     /**
-     * Get routeType
+     * Get type
      *
-     * @return string $routeType
+     * @return string $type
      */
-    public function getRouteType()
+    public function getType()
     {
-        return $this->route_type;
+        return $this->type;
     }
 
     /**
-     * Set routeUrl
+     * Set url
      *
-     * @param string $routeUrl
+     * @param string $url
      * @return self
      */
-    public function setRouteUrl($routeUrl)
+    public function setUrl($url)
     {
-        $this->route_url = $routeUrl;
+        $this->url = $url;
         return $this;
     }
 
     /**
-     * Get routeUrl
+     * Get url
      *
-     * @return string $routeUrl
+     * @return string $url
      */
-    public function getRouteUrl()
+    public function getUrl()
     {
-        return $this->route_url;
+        return $this->url;
     }
 
     /**
-     * Set couleurFont
+     * Set color
      *
-     * @param string $couleurFont
+     * @param string $color
      * @return self
      */
-    public function setCouleurFont($couleurFont)
+    public function setColor($color)
     {
-        $this->couleur_font = $couleurFont;
+        $this->color = $color;
         return $this;
     }
 
     /**
-     * Get couleurFont
+     * Get color
      *
-     * @return string $couleurFont
+     * @return string $color
      */
-    public function getCouleurFont()
+    public function getColor()
     {
-        return $this->couleur_font;
+        return $this->color;
     }
 
     /**
-     * Set couleurTexte
+     * Set text_color
      *
-     * @param string $couleurTexte
+     * @param string $textColor
      * @return self
      */
-    public function setCouleurTexte($couleurTexte)
+    public function setTextColor($textColor)
     {
-        $this->couleur_texte = $couleurTexte;
+        $this->text_color = $textColor;
         return $this;
     }
 
     /**
-     * Get couleurTexte
+     * Get text_color
      *
-     * @return string $couleurTexte
+     * @return string $textColor
      */
-    public function getCouleurTexte()
+    public function getTextColor()
     {
-        return $this->couleur_texte;
+        return $this->text_color;
     }
 }

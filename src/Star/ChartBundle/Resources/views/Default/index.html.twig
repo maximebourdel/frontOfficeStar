@@ -2,97 +2,185 @@
 {% extends "::layout.html.twig" %}
 
 
+
 {# Dans notre layout, il faut définir le block body #}
 {% block body %}
+
+{# On initialise les noms des directions pour le premier chargement de la page #}
+{% set directionsInitiales = lignes[0].longName|split(' <> ') %}
+
+
 <div class="container">
+
 	<div id="dashboard_div">
-	    <div class="well">
-		<div id="control_div"><!-- Controls renders here --></div>
-	    </div>
-	    <div class="well">
-		<div id="line_div"><!-- Line chart renders here --></div>           
-	    </div>
-	    <div class="well">
-		   <div id="table_div"><!-- Table renders here --></div>
-	    </div>
+	
+	   <h1>STAR de Rennes consultation des données</h1>
+	   
+	   
+	   
+	   <!-- FORMULAIRE PAR LIGNES  -->
+	   <form method="POST">
+    	    <h3>Par Lignes</h3>
+    	    <div class="well" id="div_ligne">
+    	       <div class="row">
+    	          
+    	          <div class="col-sm-12">
+    		          <h4>Numéro de ligne :</h4>
+    		          <select id="ligne_id_ligne" name="ligne_id_ligne">
+    		              {% for ligne in lignes %}
+    		                  <option style="color:#{{ ligne.textColor }};background:#{{ ligne.color }};" value="{{ ligne.idLigne }}"> {{ ligne.shortName }} {{ ligne.longName }}</option>
+    		              {% endfor %}
+    		          </select>
+    	          </div>
+    	          
+    	          <div class="col-sm-12">
+    		          <h4>Choisissez votre direction :</h4>
+    	              <div class="row">
+        		          <div class="col-sm-1">
+        		              <input id="ligne_direction_0" type= "radio" name="ligne_direction" value="0" checked="checked">
+        		          </div>
+        		          <div class="col-sm-11">
+        		              <div id="radioligne_direction_label_0">{{ directionsInitiales[0] }}</div>
+        		          </div>
+        		      </div>
+        		      
+        		      <div class="row">
+        		          <div class="col-sm-1">
+        		              <input id="ligne_direction_1" type= "radio" name="ligne_direction" value="1">
+        		          </div>
+        		          <div class="col-sm-11">
+        		              <div id="radioligne_direction_label_1">{{ directionsInitiales[1] }}</div>
+        		          </div>
+        		      </div>
+        		      
+        		      <div class="row">
+                		  <div class="col-sm-12">
+        	                     <button name="ligne_submit">Envoyer</button>
+        		          </div>
+    		          </div>  
+    		      </div>
+    		   </div>
+    	    </div>
+    	</form>
+    	<!-- FIN FORMULAIRE PAR LIGNES  -->
+    	
+    	
+    	
+    	
+    	<!-- FORMULAIRE PAR ARRETS  -->
+	    <form method="POST">
+    	    <h3>Par Arrets</h3>
+    	    <div class="well">
+    	       <div class="row">
+    	          <div class="col-sm-12">
+    		          <h4>Numéro d'arret :</h4>
+    		          <select name="arret_id_arret">
+    		              {% for arret in arrets %}
+    		                  <option value="{{ arret.arretId }}">{{ arret.name }} direction {{ loop.index0 % 2 }}</option>
+    		              {% endfor %}
+    		          </select>
+    	          </div>
+    	          <div class="col-sm-12">
+    	              <br />
+    	              <button name="arret_submit">Envoyer</button>
+    		      </div>
+    		   </div>
+    	    </div>
+    	</form>
+	    <!-- FIN FORMULAIRE PAR ARRETS  -->
+    	
+    	
+    	
+    	
+    	<!-- FORMULAIRE PAR LIGNES/ARRETS  -->
+	    <form method="POST">
+    	    <h3>Par Lignes et Arrets</h3>
+    	    <div class="well"  id="div_ligne_arret">
+    	       <div class="row">
+    	          <div class="col-sm-12">
+    		          <h4>Numéro de ligne :</h4>
+    		          <select id="ligne_arret_id_ligne" name="ligne_arret_id_ligne">
+    		              {% for ligne in lignes %}
+    		                  <option style="color:#{{ ligne.textColor }};background:#{{ ligne.color }};" value="{{ ligne.idLigne }}"> {{ ligne.shortName }} {{ ligne.longName }}</option>
+    		              {% endfor %}
+    		          </select>
+    	          </div>
+    	          <div class="col-sm-12">
+    		          <h4>Numéro d'arret :</h4>
+    		          <select name="ligne_arret_id_arret">
+    		              {% for arret in arrets %}
+    		                  <option value="{{ arret.arretId }}">{{ arret.name }} direction {{ loop.index0 % 2 }}</option>
+    		              {% endfor %}
+    		          </select>
+    	          </div>
+    	          <div class="col-sm-12">
+    	              <br />
+    	              <button name="ligne_arret_submit">Envoyer</button>
+    		      </div>
+    		   </div>
+    	    </div>
+    	</form>
+	    <!-- FIN FORMULAIRE PAR LIGNES/ARRETS  -->
+	    
+	    
 	</div>
+	
 </div>
 
-
 {% endblock %}
-
 
 
 {% block script %}
+<script> $('#index').addClass('active')</script>
 
-    <script type="text/javascript" src="//www.google.com/jsapi"></script>
-    <script type="text/javascript">
-    google.load('visualization', '1', { packages : ['controls'] } );
-    google.setOnLoadCallback(createTable);
-    
-    function createTable() {
-      // Create the dataset (DataTable)
-      var myData = new google.visualization.DataTable();
-      
-      myData.addColumn('datetime', 'Date');
-      myData.addColumn('number', 'Différence');
+<script>
+
+    //on applique les couleurs initiales au premier chargement
+    $('#div_ligne').css("color", "#{{ lignes[0].textColor }}");
+    $('#div_ligne').css("background", "#{{ lignes[0].color }}");
+    $('#div_ligne_arret').css("color", "#{{ lignes[0].textColor }}");
+    $('#div_ligne_arret').css("background", "#{{ lignes[0].color }}");
+
+    //lorque l'utilisateur change la liste deroulante PAR LIGNES
+    $('#ligne_id_ligne').on('change',function() {
+	   
+	    //on récupere la valeur ligne_id_ligne selectionnee
+	    var idLigneSelected = $("#ligne_id_ligne option:selected").attr('value');
+	   
+	    {%  for ligne in lignes %} 
+	        if (idLigneSelected == "{{ ligne.idLigne }}") {
+
+	    	    {% set directions = ligne.longName|split(' <> ') %}
+
+	    	    {%  for key, direction in directions %} 
+	    	        //on insere le noms de la direction dans la div à cote du bouton radio
+		    	    $( '#radioligne_direction_label_{{ key }}'  ).html("{{ direction }}");
+		        {% endfor %}
+		        $('#div_ligne').css("color", "#{{ ligne.textColor }}");
+		        $('#div_ligne').css("background", "#{{ ligne.color }}");
+	        }
+	    {% endfor %}    
+	   
+    });
 
 
-      var data = new Array();
-      {% for arretbus in arretbuses %}
-          data.push( 
-               [
-                    new Date(
-                   		{{ 20 ~ arretbus.dateRequete|date("y")|number_format}}, 
-                   		{{  arretbus.dateRequete|date("m")|number_format}}, 
-                   		{{  arretbus.dateRequete|date("d")|number_format}}, 
-                   		{{  arretbus.dateRequete|date("H")|number_format}}, 
-                   		{{  arretbus.dateRequete|date("i")|number_format}}, 
-                   		{{  arretbus.dateRequete|date("s")|number_format}}
-                   	),
-	    	        {{ arretbus.diffTR|number_format(0, '', '') }}
-                ]
-          );
-      {% endfor %}
+    //lorque l'utilisateur change la liste deroulante PAR LIGNES_ARRETS
+    $('#ligne_arret_id_ligne').on('change',function() {
 
-      myData.addRows(data);
-    
-      // Create a dashboard.
-      var dash_container = document.getElementById('dashboard_div'),
-        myDashboard = new google.visualization.Dashboard(dash_container);
-    
-      // Create a date range slider
-      var myDateSlider = new google.visualization.ControlWrapper({
-        'controlType': 'ChartRangeFilter',
-        'containerId': 'control_div',
-        'options': {
-          'filterColumnLabel': 'Date'
-        }
-      });
-    
-      // Table visualization
-      var myTable = new google.visualization.ChartWrapper({
-        'chartType' : 'Table',
-        'containerId' : 'table_div'
-      });
-    
-      // Bind myTable to the dashboard, and to the controls
-      // this will make sure our table is update when our date changes
-      myDashboard.bind(myDateSlider, myTable);
-    
-      // Line chart visualization
-      var myLine = new google.visualization.ChartWrapper({
-        'chartType' : 'ColumnChart',
-        'containerId' : 'line_div',
-      });
-      
-      // Bind myLine to the dashboard, and to the controls
-      // this will make sure our line chart is update when our date changes
-      myDashboard.bind(myDateSlider, myLine );
-    
-      myDashboard.draw(myData);
-    }
-    </script>
-   
+	    //on récupere la valeur ligne_id_ligne selectionnee
+	    var idLigneSelected = $("#ligne_arret_id_ligne option:selected").attr('value');
+	   
+	    {%  for ligne in lignes %} 
+	        if (idLigneSelected == "{{ ligne.idLigne }}") {
+
+		            $('#div_ligne_arret').css("color", "#{{ ligne.textColor }}");
+		            $('#div_ligne_arret').css("background", "#{{ ligne.color }}");
+	        }
+	    {% endfor %}    
+	   
+    });
+
+</script>
 {% endblock %}
+
 

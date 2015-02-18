@@ -12,4 +12,12 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class arretbusRepository extends DocumentRepository
 {
+    public function findAllEqual0()
+    {
+        return $this->createQueryBuilder()
+        ->field('diff_TR')->equals('30')
+        ->sort('p.date_requete', 'ASC')
+        ->getQuery()
+        ->execute();
+    }
 }

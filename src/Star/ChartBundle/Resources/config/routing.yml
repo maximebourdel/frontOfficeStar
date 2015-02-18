@@ -1,3 +1,15 @@
-star_chart_homepage:
-    path:     /chart/{id_ligne}
+star_chart_index:
+    path:     /
     defaults: { _controller: StarChartBundle:Default:index }
+
+star_chart_showArret:
+    path:     /arret/{id_arret}
+    defaults: { _controller: StarChartBundle:Default:showData }
+    
+star_chart_showLigne:
+    path:     /ligne/{id_ligne}/{direction}
+    defaults: { _controller: StarChartBundle:Default:showData }   
+
+star_chart_showLigneArret:
+    path:     /{id_ligne}/{id_arret}
+    defaults: { _controller: StarChartBundle:Default:showData }

@@ -10,49 +10,49 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class arretbus
 {
 	/**
-     	* @MongoDB\Id
-    	 */
-    	protected $id;
+ 	* @MongoDB\Id
+	 */
+	protected $id;
 
-    	/**
-     	* @MongoDB\String
-     	*/
+	/**
+ 	* @MongoDB\String
+ 	*/
 	protected $id_arret;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $id_ligne;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $date_requete;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $direction;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $en_tete;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $prevu;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $reel;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $num_vehicule;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $precision;
 	/**
-     	* @MongoDB\String
-     	*/
+ 	* @MongoDB\String
+ 	*/
 	protected $diff_TR;
 
     

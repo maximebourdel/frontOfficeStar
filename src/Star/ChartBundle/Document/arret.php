@@ -10,54 +10,61 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class arret
 {
 	/**
-     	* @MongoDB\Id
-    	 */
-    	protected $id;
+     * @MongoDB\Id
+     */
+    protected $id;
 
-    	/**
-     	* @MongoDB\String
-    	 */
-	protected $stop_code;
+    /**
+     * @MongoDB\String
+     */
+    protected $arret_id;
+    
+    /**
+     * @MongoDB\String
+     */
+	protected $code;
 	/**
-     	* @MongoDB\String
-    	 */
-	protected $nom;
+ 	* @MongoDB\String
+	 */
+	protected $name;
 	/**
-     	* @MongoDB\String
-    	 */
-	protected $description;
+ 	* @MongoDB\String
+	 */
+	protected $desc;
 	/**
-     	* @MongoDB\String
-    	 */
-	protected $lon;
-	/**
-     	* @MongoDB\String
-    	 */
+ 	* @MongoDB\String
+	 */
 	protected $lat;
 	/**
-     	* @MongoDB\String
-    	 */
+ 	* @MongoDB\String
+	 */
+	protected $lon;
+	/**
+ 	* @MongoDB\String
+	 */
 	protected $zone_id;
 	/**
      	* @MongoDB\String
     	 */
-	protected $stop_url;
+	protected $url;
 	/**
      	* @MongoDB\String
     	 */
 	protected $location_type;
 	/**
-     	* @MongoDB\String
-    	 */
+ 	* @MongoDB\String
+	 */
 	protected $parent_station;
 	/**
-     	* @MongoDB\String
-    	 */
-	protected $stop_timezone;
+ 	* @MongoDB\String
+	 */
+	protected $timezone;
 	/**
-     	* @MongoDB\String
-    	 */
+ 	* @MongoDB\String
+	 */
 	protected $wheelchair_boarding;
+
+    
 
     /**
      * Get id
@@ -70,91 +77,91 @@ class arret
     }
 
     /**
-     * Set stopCode
+     * Set arret_id
      *
-     * @param string $stopCode
+     * @param string $arretId
      * @return self
      */
-    public function setStopCode($stopCode)
+    public function setArretId($arretId)
     {
-        $this->stop_code = $stopCode;
+        $this->arret_id = $arretId;
         return $this;
     }
 
     /**
-     * Get stopCode
+     * Get arret_id
      *
-     * @return string $stopCode
+     * @return string $arretId
      */
-    public function getStopCode()
+    public function getArretId()
     {
-        return $this->stop_code;
+        return $this->arret_id;
     }
 
     /**
-     * Set nom
+     * Set code
      *
-     * @param string $nom
+     * @param string $code
      * @return self
      */
-    public function setNom($nom)
+    public function setCode($code)
     {
-        $this->nom = $nom;
+        $this->code = $code;
         return $this;
     }
 
     /**
-     * Get nom
+     * Get code
      *
-     * @return string $nom
+     * @return string $code
      */
-    public function getNom()
+    public function getCode()
     {
-        return $this->nom;
+        return $this->code;
     }
 
     /**
-     * Set description
+     * Set name
      *
-     * @param string $description
+     * @param string $name
      * @return self
      */
-    public function setDescription($description)
+    public function setName($name)
     {
-        $this->description = $description;
+        $this->name = $name;
         return $this;
     }
 
     /**
-     * Get description
+     * Get name
      *
-     * @return string $description
+     * @return string $name
      */
-    public function getDescription()
+    public function getName()
     {
-        return $this->description;
+        return $this->name;
     }
 
     /**
-     * Set lon
+     * Set desc
      *
-     * @param string $lon
+     * @param string $desc
      * @return self
      */
-    public function setLon($lon)
+    public function setDesc($desc)
     {
-        $this->lon = $lon;
+        $this->desc = $desc;
         return $this;
     }
 
     /**
-     * Get lon
+     * Get desc
      *
-     * @return string $lon
+     * @return string $desc
      */
-    public function getLon()
+    public function getDesc()
     {
-        return $this->lon;
+        return $this->desc;
     }
 
     /**
@@ -180,7 +187,29 @@ class arret
     }
 
     /**
-     * Set zoneId
+     * Set lon
+     *
+     * @param string $lon
+     * @return self
+     */
+    public function setLon($lon)
+    {
+        $this->lon = $lon;
+        return $this;
+    }
+
+    /**
+     * Get lon
+     *
+     * @return string $lon
+     */
+    public function getLon()
+    {
+        return $this->lon;
+    }
+
+    /**
+     * Set zone_id
      *
      * @param string $zoneId
      * @return self
@@ -192,7 +221,7 @@ class arret
     }
 
     /**
-     * Get zoneId
+     * Get zone_id
      *
      * @return string $zoneId
      */
@@ -202,29 +231,29 @@ class arret
     }
 
     /**
-     * Set stopUrl
+     * Set url
      *
-     * @param string $stopUrl
+     * @param string $url
      * @return self
      */
-    public function setStopUrl($stopUrl)
+    public function setUrl($url)
     {
-        $this->stop_url = $stopUrl;
+        $this->url = $url;
         return $this;
     }
 
     /**
-     * Get stopUrl
+     * Get url
      *
-     * @return string $stopUrl
+     * @return string $url
      */
-    public function getStopUrl()
+    public function getUrl()
     {
-        return $this->stop_url;
+        return $this->url;
     }
 
     /**
-     * Set locationType
+     * Set location_type
      *
      * @param string $locationType
      * @return self
@@ -236,7 +265,7 @@ class arret
     }
 
     /**
-     * Get locationType
+     * Get location_type
      *
      * @return string $locationType
      */
@@ -246,7 +275,7 @@ class arret
     }
 
     /**
-     * Set parentStation
+     * Set parent_station
      *
      * @param string $parentStation
      * @return self
@@ -258,7 +287,7 @@ class arret
     }
 
     /**
-     * Get parentStation
+     * Get parent_station
      *
      * @return string $parentStation
      */
@@ -268,29 +297,29 @@ class arret
     }
 
     /**
-     * Set stopTimezone
+     * Set timezone
      *
-     * @param string $stopTimezone
+     * @param string $timezone
      * @return self
      */
-    public function setStopTimezone($stopTimezone)
+    public function setTimezone($timezone)
     {
-        $this->stop_timezone = $stopTimezone;
+        $this->timezone = $timezone;
         return $this;
     }
 
     /**
-     * Get stopTimezone
+     * Get timezone
      *
-     * @return string $stopTimezone
+     * @return string $timezone
      */
-    public function getStopTimezone()
+    public function getTimezone()
     {
-        return $this->stop_timezone;
+        return $this->timezone;
     }
 
     /**
-     * Set wheelchairBoarding
+     * Set wheelchair_boarding
      *
      * @param string $wheelchairBoarding
      * @return self
@@ -302,7 +331,7 @@ class arret
     }
 
     /**
-     * Get wheelchairBoarding
+     * Get wheelchair_boarding
      *
      * @return string $wheelchairBoarding
      */

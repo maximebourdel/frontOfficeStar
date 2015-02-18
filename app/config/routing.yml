@@ -1,4 +1,3 @@
 star_chart:
     resource: "@StarChartBundle/Resources/config/routing.yml"
     prefix:   /
-
