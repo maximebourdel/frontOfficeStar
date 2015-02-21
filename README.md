@@ -24,7 +24,7 @@ La récupération du projet s'effectue via Github :
 
 `puis relacez la commande d'avant`
 
-###  STEP 2 utilisez composer
+###  STEP 2 : utiliser composer
 
 Une fois le projet récupéré, il est nécessaire d'y inclure les librairies via Composer (un peu comme avec Maven) pour ce faire :
 
