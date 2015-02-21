@@ -84,17 +84,17 @@ class DefaultController extends Controller
         if ($request->get('id_ligne')) {
             $filter['id_ligne'] = $request->get('id_ligne');
         }
-        if ($request->get('direction')) {
+        if ($request->get('direction') == 0 || $request->get('direction') == 1) {
             $filter['direction'] = $request->get('direction');
         }
         
         $arretbuses = $this->get('doctrine_mongodb')
             ->getRepository('StarChartBundle:arretbus')
-            ->findBy($filter, $order);
+            ->findBy($filter);
         
         return $this->render('StarChartBundle:Default:showData.html.twig', 
                 array(
-                    'arretbuses' => $arretbuses
+                    'arretbuses' => $arretbuses,
                 ));
     }
   
