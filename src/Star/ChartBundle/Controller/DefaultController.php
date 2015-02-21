@@ -35,14 +35,14 @@ class DefaultController extends Controller
                     )
             ));
         //si c'est le formulaire arret_submit qui a ete renvoye
-        } elseif ($post->request->has('arret_submit')) {
+        } if ($post->request->has('arret_submit')) {
             return $this->redirect($this->generateUrl('star_chart_showArret', 
                     array(
                         'id_arret' => $request->get('arret_id_arret'), 
                     )
             ));
         //si c'est le formulaire ligne_arret qui a ete renvoye
-        } elseif ($post->request->has('ligne_arret_submit')) {
+        } if ($post->request->has('ligne_arret_submit')) {
             return $this->redirect($this->generateUrl('star_chart_showLigneArret', 
                     array(
                         'id_ligne' => $request->get('ligne_arret_id_ligne'),
@@ -84,7 +84,7 @@ class DefaultController extends Controller
         if ($request->get('id_ligne')) {
             $filter['id_ligne'] = $request->get('id_ligne');
         }
-        if ($request->get('direction') == 0 || $request->get('direction') == 1) {
+        if ($request->get('direction') == "0"|| $request->get('direction') == "1") {
             $filter['direction'] = $request->get('direction');
         }
         
@@ -95,6 +95,7 @@ class DefaultController extends Controller
         return $this->render('StarChartBundle:Default:showData.html.twig', 
                 array(
                     'arretbuses' => $arretbuses,
+                        'filter' => $filter
                 ));
     }
   
