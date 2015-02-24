@@ -276,11 +276,11 @@
 
       //recolte des données
       var data = new Array();
-      {% for retardmoyenligne in retardmoyenlignes %}
+      {% for retardmoyenligneab in retardmoyenlignesabs %}
           data.push( 
                [
-                    "{{ retardmoyenligne.id }}",
-                    {{ retardmoyenligne.value|number_format(0, ",",".")|abs }}
+                    "{{ retardmoyenligneab.id }}",
+                    {{ retardmoyenligneab.value|number_format(0, ",",".")|abs }}
                 ]
           );
       {% endfor %}

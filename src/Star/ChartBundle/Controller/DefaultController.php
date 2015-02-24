@@ -157,7 +157,7 @@ class DefaultController extends Controller
         //on renvoie la vue
         return $this->render('StarChartBundle:Default:index.html.twig', 
                 array(
-                    'retardmoyenlignes' => $retardmoyenlignesabs,
+                    'retardmoyenlignesabs' => $retardmoyenlignesabs,
                     'arrets' => $arrets,
                     'lignes' => $lignes,
                     'ligneMoinsRetard' => $ligneMoinsRetard,
