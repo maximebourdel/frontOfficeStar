@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Star\ChartBundle\Document\ligne;
 use Star\ChartBundle\Document\arretbus;
 use Star\ChartBundle\Document\arret;
+use Star\ChartBundle\Document\retardmoyenlignes;
 
 // import des formulaires
 use Star\ChartBundle\Form\LigneConsultType;
@@ -61,12 +62,60 @@ class DefaultController extends Controller
             ->getRepository('StarChartBundle:arret')
             ->findBy(array(), array('name' => 'ASC'));
         
+        
+        // recupere le MAP REDUCE retardmoyenlignes 
+        $retardmoyenlignes = $this->get('doctrine_mongodb')
+            ->getRepository('StarChartBundle:retardmoyenlignes')
+            ->findAll();
+        
+        
+        /**
+         * Cette partie ne s'occupe que de la récupération des lignes 
+         * la PLUS en retard et la MOINS en retard
+         */
+        
+        //on initialise avec la premiere valeur
+        $lignePlusRetardVal = $retardmoyenlignes[0]->getValue();
+        $ligneMoinsRetardVal = $retardmoyenlignes[0]->getValue();
+        
+        
+        //
+        foreach ($retardmoyenlignes as $retardmoyenligne){
+            
+            if($retardmoyenligne->getValue() < $lignePlusRetardVal){
+                $lignePlusRetardVal = $retardmoyenligne->getValue();
+                $lignePlusRetardNum = $retardmoyenligne->getId();
+            }
+            if($retardmoyenligne->getValue() > $ligneMoinsRetardVal){
+                $ligneMoinsRetardVal = $retardmoyenligne->getValue();
+                $ligneMoinsRetardNum = $retardmoyenligne->getId();
+            }
+        }
+        
+        // recupere les infos concernant la ligne la PLUS en retard
+        $lignesPlusRetardNom = $this->get('doctrine_mongodb')
+            ->getRepository('StarChartBundle:ligne')
+            ->findBy(array("id_ligne" => $lignePlusRetardNum));
+        
+        // recupere les infos concernant la ligne la MOINS en retard
+        $lignesMoinsRetardNom = $this->get('doctrine_mongodb')
+            ->getRepository('StarChartBundle:ligne')
+            ->findBy(array("id_ligne" => $ligneMoinsRetardNum));
+        
+        //Voici les tableaux finaux affichant les valeurs que l'on désire
+        $lignePlusRetard = array($lignesPlusRetardNom[0],$lignePlusRetardVal); 
+        $ligneMoinsRetard = array($lignesMoinsRetardNom[0],$ligneMoinsRetardVal);
+        
+        
+        
+        //on renvoie la vue
         return $this->render('StarChartBundle:Default:index.html.twig', 
                 array(
                     
                     'arrets' => $arrets,
                     'lignes' => $lignes,
-                    'post' => $post
+                    'ligneMoinsRetard' => $ligneMoinsRetard,
+                    'lignePlusRetard' => $lignePlusRetard
                 ));
     }
 
@@ -76,8 +125,10 @@ class DefaultController extends Controller
      */
     public function showDataAction (Request $request)
     {
+        //recupere les valeurs renvoyees par le formulaire de la page index
         $filter = array();
-        $order = array("date_requete" => "ASC");
+        
+        //et les ajoute au filtre
         if ($request->get('id_arret')) {
             $filter['id_arret'] = $request->get('id_arret');
         }
@@ -88,10 +139,13 @@ class DefaultController extends Controller
             $filter['direction'] = $request->get('direction');
         }
         
+        //recherche les donnees a recuperer en fonction du filtre
         $arretbuses = $this->get('doctrine_mongodb')
             ->getRepository('StarChartBundle:arretbus')
             ->findBy($filter);
         
+        
+        //on renvoie la vue
         return $this->render('StarChartBundle:Default:showData.html.twig', 
                 array(
                     'arretbuses' => $arretbuses,

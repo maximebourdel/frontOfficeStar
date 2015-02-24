@@ -9,7 +9,6 @@
 {# On initialise les noms des directions pour le premier chargement de la page #}
 {% set directionsInitiales = lignes[0].longName|split(' <> ') %}
 
-
 <div class="container">
 
 	<div id="dashboard_div">
@@ -108,7 +107,7 @@
         	          </div>
         	          <div class="col-sm-12">
         		          <h4>Numéro d'arret :</h4>
-        		          <select name="ligne_arret_id_arret">
+        		          <select name="ligne_arret_id_arret" class="col-sm-12">
         		              {% for arret in arrets %}
         		                  <option value="{{ arret.arretId }}">{{ arret.name }} direction {{ loop.index0 % 2 }}</option>
         		              {% endfor %}
@@ -124,10 +123,24 @@
 	    </div>
 	    <!-- FIN FORMULAIRE PAR LIGNES/ARRETS  -->
 	    
+	    
+	    <h1>Quelques données :</h1>
+	    <div class="col-sm-12">
+	          <h4>Les lignes</h4>
+      	     <div id="div_ligne_plus_retard" class="well col-sm-6">
+    	         Bonnet d'âne : ligne <b>{{ lignePlusRetard[0].shortName }}</b> <b>{{ lignePlusRetard[0].longName }}</b> 
+    	         <br />
+    	         avec <b>{{ lignePlusRetard[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_plus_retard_info">de retard</b>
+    	     </div>
+    	     <div id="div_ligne_moins_retard" class="well col-sm-6">
+    	         Élève modèle : ligne <b>{{ ligneMoinsRetard[0].shortName }}</b> <b>{{ ligneMoinsRetard[0].longName }}</b> 
+    	         <br />
+    	         avec <b>{{ ligneMoinsRetard[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_moins_retard_info">d'avance</b>
+    	          
+    	     </div> 
+    	</div>
 	</div>
-	
 </div>
-
 {% endblock %}
 
 
@@ -139,9 +152,28 @@
     //on applique les couleurs initiales au premier chargement
     $('#div_ligne').css("color", "#{{ lignes[0].textColor }}");
     $('#div_ligne').css("background", "#{{ lignes[0].color }}");
+    
     $('#div_ligne_arret').css("color", "#{{ lignes[0].textColor }}");
     $('#div_ligne_arret').css("background", "#{{ lignes[0].color }}");
 
+    $('#div_ligne_plus_retard').css("background", "#{{ lignePlusRetard[0].color }}");
+    $('#div_ligne_plus_retard').css("color", "#{{ lignePlusRetard[0].textColor }}");
+    
+    $('#div_ligne_moins_retard').css("background", "#{{ ligneMoinsRetard[0].color }}");
+    $('#div_ligne_moins_retard').css("color", "#{{ ligneMoinsRetard[0].textColor }}");
+
+    //simple ajout 
+    {%  if (lignePlusRetard[1]|number_format(0, ",",".") > 0 ) %}
+        $( '#div_ligne_plus_retard_info' ).html("d'avance");
+    {% else %}
+        $( '#div_ligne_plus_retard_info' ).html("de retard");
+    {% endif %}
+    {%  if (ligneMoinsRetard[1]|number_format(0, ",",".") > 0 ) %}
+        $( '#div_ligne_moins_retard_info' ).html("d'avance");
+    {% else %}
+        $( '#div_ligne_moins_retard_info' ).html("de retard");
+    {% endif %}
+    
     //lorque l'utilisateur change la liste deroulante PAR LIGNES
     $('#ligne_id_ligne').on('change',function() {
 	   
