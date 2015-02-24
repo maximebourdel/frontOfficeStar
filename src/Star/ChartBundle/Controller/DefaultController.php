@@ -11,6 +11,7 @@ use Star\ChartBundle\Document\ligne;
 use Star\ChartBundle\Document\arretbus;
 use Star\ChartBundle\Document\arret;
 use Star\ChartBundle\Document\retardmoyenlignes;
+use Star\ChartBundle\Document\retardmoyenabsolulignes;
 
 // import des formulaires
 use Star\ChartBundle\Form\LigneConsultType;
@@ -68,6 +69,11 @@ class DefaultController extends Controller
             ->getRepository('StarChartBundle:retardmoyenlignes')
             ->findAll();
         
+        // recupere le MAP REDUCE retardmoyenlignes
+        $retardmoyenlignesabs = $this->get('doctrine_mongodb')
+            ->getRepository('StarChartBundle:retardmoyenabsolulignes')
+            ->findAll();
+        
         
         /**
          * Cette partie ne s'occupe que de la récupération des lignes 
@@ -108,6 +114,46 @@ class DefaultController extends Controller
         
         
         
+        
+        
+        /**
+         * Cette partie ne s'occupe que de la récupération des lignes
+         * la PLUS en retard et la MOINS en retard ABSOLUE
+         */
+        
+        //on initialise avec la premiere valeur
+        $lignePlusRetardValAbs = $retardmoyenlignesabs[0]->getValue();
+        $ligneMoinsRetardValAbs = $retardmoyenlignesabs[0]->getValue();
+        
+        
+        //
+        foreach ($retardmoyenlignesabs as $retardmoyenligneab){
+            if($retardmoyenligneab->getValue() < $lignePlusRetardValAbs){
+                $lignePlusRetardValAbs = $retardmoyenligneab->getValue();
+                $lignePlusRetardNumAbs = $retardmoyenligneab->getId();
+            }
+            if($retardmoyenligneab->getValue() > $ligneMoinsRetardValAbs){
+                $ligneMoinsRetardValAbs = $retardmoyenligneab->getValue();
+                $ligneMoinsRetardNumAbs = $retardmoyenligneab->getId();
+            }
+        }
+        
+        // recupere les infos concernant la ligne la PLUS en retard
+        $lignesPlusRetardNomAbs = $this->get('doctrine_mongodb')
+            ->getRepository('StarChartBundle:ligne')
+            ->findBy(array("id_ligne" => $lignePlusRetardNumAbs));
+        
+        // recupere les infos concernant la ligne la MOINS en retard
+        $lignesMoinsRetardNomAbs = $this->get('doctrine_mongodb')
+            ->getRepository('StarChartBundle:ligne')
+            ->findBy(array("id_ligne" => $ligneMoinsRetardNumAbs));
+        
+        //Voici les tableaux finaux affichant les valeurs que l'on désire
+        $lignePlusRetardAbs = array($lignesPlusRetardNomAbs[0],$lignePlusRetardValAbs);
+        $ligneMoinsRetardAbs = array($lignesMoinsRetardNomAbs[0],$ligneMoinsRetardValAbs);
+        
+        
+        
         //on renvoie la vue
         return $this->render('StarChartBundle:Default:index.html.twig', 
                 array(
@@ -115,7 +161,9 @@ class DefaultController extends Controller
                     'arrets' => $arrets,
                     'lignes' => $lignes,
                     'ligneMoinsRetard' => $ligneMoinsRetard,
-                    'lignePlusRetard' => $lignePlusRetard
+                    'lignePlusRetard' => $lignePlusRetard,
+                    'ligneMoinsRetardAbs' => $ligneMoinsRetardAbs,
+                    'lignePlusRetardAbs' => $lignePlusRetardAbs
                 ));
     }
 

@@ -366,12 +366,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "0162e00821ff23e961efee7b88753b85f3722036"
+                "reference": "2f8d7263c4c44445b51fc2d9bf71d21f7016347d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/0162e00821ff23e961efee7b88753b85f3722036",
-                "reference": "0162e00821ff23e961efee7b88753b85f3722036",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/2f8d7263c4c44445b51fc2d9bf71d21f7016347d",
+                "reference": "2f8d7263c4c44445b51fc2d9bf71d21f7016347d",
                 "shasum": ""
             },
             "require": {
@@ -435,7 +435,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-02-13 09:27:43"
+            "time": "2015-02-18 09:28:31"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1160,12 +1160,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "f05ed3a44a8e40533d4cf60a0669db6b1887b499"
+                "reference": "fa3bc975c2ff42a40c4c565b191a31a7e7ca08b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f05ed3a44a8e40533d4cf60a0669db6b1887b499",
-                "reference": "f05ed3a44a8e40533d4cf60a0669db6b1887b499",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fa3bc975c2ff42a40c4c565b191a31a7e7ca08b1",
+                "reference": "fa3bc975c2ff42a40c4c565b191a31a7e7ca08b1",
                 "shasum": ""
             },
             "require": {
@@ -1224,7 +1224,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-02-11 14:20:33"
+            "time": "2015-02-23 00:57:27"
         },
         {
             "name": "psr/log",
@@ -1661,12 +1661,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "ce009624aa0884280246db7c1e3c0caad61d6133"
+                "reference": "2f3692aca7582e5c48d57a7e800086c6a6405a2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/ce009624aa0884280246db7c1e3c0caad61d6133",
-                "reference": "ce009624aa0884280246db7c1e3c0caad61d6133",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/2f3692aca7582e5c48d57a7e800086c6a6405a2b",
+                "reference": "2f3692aca7582e5c48d57a7e800086c6a6405a2b",
                 "shasum": ""
             },
             "require": {
@@ -1730,7 +1730,8 @@
                 "ircmaxell/password-compat": "~1.0",
                 "monolog/monolog": "~1.11",
                 "ocramius/proxy-manager": "~0.4|~1.0",
-                "propel/propel1": "~1.6"
+                "propel/propel1": "~1.6",
+                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "library",
             "extra": {
@@ -1769,7 +1770,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-02-16 09:22:28"
+            "time": "2015-02-24 11:52:21"
         },
         {
             "name": "twig/extensions",

@@ -125,8 +125,11 @@
 	    
 	    
 	    <h1>Quelques données :</h1>
+	    
+	    
+	    <!-- DEBUT AFFICHAGE RETARD MOYEN LIGNE  -->
 	    <div class="col-sm-12">
-	          <h4>Les lignes</h4>
+	         <h4>Retard moyen des lignes</h4>
       	     <div id="div_ligne_plus_retard" class="well col-sm-6">
     	         Bonnet d'âne : ligne <b>{{ lignePlusRetard[0].shortName }}</b> <b>{{ lignePlusRetard[0].longName }}</b> 
     	         <br />
@@ -139,6 +142,26 @@
     	          
     	     </div> 
     	</div>
+    	<!-- FIN AFFICHAGE RETARD MOYEN LIGNE -->
+    	
+    	
+    	<!-- DEBUT AFFICHAGE RETARD MOYEN LIGNE ABSOLU -->
+        <div class="col-sm-12">
+	         <h4>Retard moyen absolu des lignes</h4>
+      	     <div id="div_ligne_plus_retard_abs" class="well col-sm-6">
+    	         Bonnet d'âne : ligne <b>{{ lignePlusRetardAbs[0].shortName }}</b> <b>{{ lignePlusRetardAbs[0].longName }}</b> 
+    	         <br />
+    	         avec <b>{{ lignePlusRetardAbs[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_plus_retard_abs_info">d'écart à ses horaires</b>
+    	     </div>
+    	     <div id="div_ligne_moins_retard_abs" class="well col-sm-6">
+    	         Élève modèle : ligne <b>{{ ligneMoinsRetardAbs[0].shortName }}</b> <b>{{ ligneMoinsRetardAbs[0].longName }}</b> 
+    	         <br />
+    	         avec <b>{{ ligneMoinsRetardAbs[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_moins_retard_abs_info">d'écart à ses horaires</b>
+    	          
+    	     </div> 
+    	</div>
+    	<!-- FIN AFFICHAGE RETARD MOYEN LIGNE ABSOLU -->
+    	
 	</div>
 </div>
 {% endblock %}
@@ -156,11 +179,20 @@
     $('#div_ligne_arret').css("color", "#{{ lignes[0].textColor }}");
     $('#div_ligne_arret').css("background", "#{{ lignes[0].color }}");
 
+
+    ///retard moyen
     $('#div_ligne_plus_retard').css("background", "#{{ lignePlusRetard[0].color }}");
     $('#div_ligne_plus_retard').css("color", "#{{ lignePlusRetard[0].textColor }}");
     
     $('#div_ligne_moins_retard').css("background", "#{{ ligneMoinsRetard[0].color }}");
     $('#div_ligne_moins_retard').css("color", "#{{ ligneMoinsRetard[0].textColor }}");
+
+    //retard moyen absolue
+    $('#div_ligne_plus_retard_abs').css("background", "#{{ lignePlusRetardAbs[0].color }}");
+    $('#div_ligne_plus_retard_abs').css("color", "#{{ lignePlusRetardAbs[0].textColor }}");
+
+    $('#div_ligne_moins_retard_abs').css("background", "#{{ ligneMoinsRetardAbs[0].color }}");
+    $('#div_ligne_moins_retard_abs').css("color", "#{{ ligneMoinsRetardAbs[0].textColor }}");
 
     //simple ajout 
     {%  if (lignePlusRetard[1]|number_format(0, ",",".") > 0 ) %}
