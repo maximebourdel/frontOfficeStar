@@ -69,7 +69,7 @@ class DefaultController extends Controller
             ->getRepository('StarChartBundle:retardmoyenlignes')
             ->findAll();
         
-        // recupere le MAP REDUCE retardmoyenlignes
+        // recupere le MAP REDUCE retardmoyenlignesabs
         $retardmoyenlignesabs = $this->get('doctrine_mongodb')
             ->getRepository('StarChartBundle:retardmoyenabsolulignes')
             ->findAll();
@@ -157,7 +157,7 @@ class DefaultController extends Controller
         //on renvoie la vue
         return $this->render('StarChartBundle:Default:index.html.twig', 
                 array(
-                    
+                    'retardmoyenlignes' => $retardmoyenlignesabs,
                     'arrets' => $arrets,
                     'lignes' => $lignes,
                     'ligneMoinsRetard' => $ligneMoinsRetard,

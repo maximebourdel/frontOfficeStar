@@ -147,7 +147,7 @@
     	
     	<!-- DEBUT AFFICHAGE RETARD MOYEN LIGNE ABSOLU -->
         <div class="col-sm-12">
-	         <h4>Retard moyen absolu des lignes</h4>
+	         <h4>Écart moyen absolu des lignes</h4>
       	     <div id="div_ligne_plus_retard_abs" class="well col-sm-6">
     	         Bonnet d'âne : ligne <b>{{ lignePlusRetardAbs[0].shortName }}</b> <b>{{ lignePlusRetardAbs[0].longName }}</b> 
     	         <br />
@@ -162,13 +162,28 @@
     	</div>
     	<!-- FIN AFFICHAGE RETARD MOYEN LIGNE ABSOLU -->
     	
+    	
+    	
 	</div>
+	<div class="row">
+    <div class="well col-sm-10">
+        <div id="piechart" style="height:1000px;"></div>
+    </div>
+    <div class=" well col-sm-2">
+        {% for ligne in lignes %}
+            <p> {{ ligne.idLigne }} = {{ ligne.shortName }}</p>
+        {% endfor %}
+    </div>
 </div>
+</div>
+
 {% endblock %}
 
 
 {% block script %}
 <script> $('#index').addClass('active')</script>
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
 
 <script>
 
@@ -229,6 +244,8 @@
     });
 
 
+    
+
     //lorque l'utilisateur change la liste deroulante PAR LIGNES_ARRETS
     $('#ligne_arret_id_ligne').on('change',function() {
 
@@ -245,6 +262,43 @@
 	   
     });
 
+
+
+    google.load('visualization', '1', { packages : ['corechart'] } );
+    google.setOnLoadCallback(drawChart);
+    
+    function drawChart() {
+        
+      //initialisation du graphe
+      var myData = new google.visualization.DataTable();
+      myData.addColumn('string', 'LOL');
+      myData.addColumn('number', 'Différence');
+
+      //recolte des données
+      var data = new Array();
+      {% for retardmoyenligne in retardmoyenlignes %}
+          data.push( 
+               [
+                    "{{ retardmoyenligne.id }}",
+                    {{ retardmoyenligne.value|number_format(0, ",",".")|abs }}
+                ]
+          );
+      {% endfor %}
+      myData.addRows(data);
+
+      var options = {
+              title: 'Écart moyen absolu de toutes les lignes',
+      };
+      
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+      chart.draw(myData, options);
+      
+    }
+
+    
+</script>
+    
 </script>
 {% endblock %}
 
