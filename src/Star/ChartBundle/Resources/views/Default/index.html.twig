@@ -166,15 +166,10 @@
     	
 	</div>
 	<div class="row">
-    <div class="well col-sm-10">
-        <div id="piechart" style="height:1000px;"></div>
-    </div>
-    <div class=" well col-sm-2">
-        {% for ligne in lignes %}
-            <p> {{ ligne.idLigne }} = {{ ligne.shortName }}</p>
-        {% endfor %}
-    </div>
-</div>
+	    <div class="well col-sm-12">
+		<div id="piechart" style="height:1000px;"></div>
+	    </div>
+        </div>
 </div>
 
 {% endblock %}
@@ -279,7 +274,7 @@
       {% for retardmoyenligneab in retardmoyenlignesabs %}
           data.push( 
                [
-                    "{{ retardmoyenligneab.id }}",
+                    "{{ lignes[loop.index0].shortName }}",
                     {{ retardmoyenligneab.value|number_format(0, ",",".")|abs }}
                 ]
           );
