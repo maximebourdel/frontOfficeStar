@@ -269,12 +269,19 @@
       myData.addColumn('string', 'LOL');
       myData.addColumn('number', 'Différence');
 
+      {%  set nomLigne = null  %} 
       //recolte des données
       var data = new Array();
       {% for retardmoyenligneab in retardmoyenlignesabs %}
+
+          {% for ligne in lignes %}
+              {% if( ligne.idLigne == retardmoyenligneab.id)  %}
+                  {%  set nomLigne = ligne.shortName  %}
+              {% endif %}
+          {% endfor %}
           data.push( 
                [
-                    "{{ lignes[loop.index0].shortName }}",
+                    "{{ nomLigne }}",
                     {{ retardmoyenligneab.value|number_format(0, ",",".")|abs }}
                 ]
           );
