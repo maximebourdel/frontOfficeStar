@@ -148,17 +148,18 @@
     	<!-- DEBUT AFFICHAGE RETARD MOYEN LIGNE ABSOLU -->
         <div class="col-sm-12">
 	         <h4>Écart moyen absolu des lignes</h4>
-      	     <div id="div_ligne_plus_retard_abs" class="well col-sm-6">
-    	         Bonnet d'âne : ligne <b>{{ lignePlusRetardAbs[0].shortName }}</b> <b>{{ lignePlusRetardAbs[0].longName }}</b> 
-    	         <br />
-    	         avec <b>{{ lignePlusRetardAbs[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_plus_retard_abs_info">d'écart à ses horaires</b>
-    	     </div>
-    	     <div id="div_ligne_moins_retard_abs" class="well col-sm-6">
-    	         Élève modèle : ligne <b>{{ ligneMoinsRetardAbs[0].shortName }}</b> <b>{{ ligneMoinsRetardAbs[0].longName }}</b> 
+            <div id="div_ligne_moins_retard_abs" class="well col-sm-6">
+    	         Bonnet d'âne : ligne <b>{{ ligneMoinsRetardAbs[0].shortName }}</b> <b>{{ ligneMoinsRetardAbs[0].longName }}</b> 
     	         <br />
     	         avec <b>{{ ligneMoinsRetardAbs[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_moins_retard_abs_info">d'écart à ses horaires</b>
     	          
     	     </div> 
+      	     <div id="div_ligne_plus_retard_abs" class="well col-sm-6">
+    	         Élève modèle : ligne <b>{{ lignePlusRetardAbs[0].shortName }}</b> <b>{{ lignePlusRetardAbs[0].longName }}</b> 
+    	         <br />
+    	         avec <b>{{ lignePlusRetardAbs[1]|number_format(0, ",",".")|abs }} sec</b> <b id="div_ligne_plus_retard_abs_info">d'écart à ses horaires</b>
+    	     </div>
+    	     
     	</div>
     	<!-- FIN AFFICHAGE RETARD MOYEN LIGNE ABSOLU -->
     	

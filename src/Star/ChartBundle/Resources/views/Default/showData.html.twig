@@ -50,7 +50,7 @@
                [
                     new Date(
                    		{{ 20 ~ arretbus.dateRequete|date("y")|number_format}}, 
-                   		{{  arretbus.dateRequete|date("m")|number_format}}, 
+                   		{{  arretbus.dateRequete|date("m")|number_format -1 }}, 
                    		{{  arretbus.dateRequete|date("d")|number_format}}, 
                    		{{  arretbus.dateRequete|date("H")|number_format}}, 
                    		{{  arretbus.dateRequete|date("i")|number_format}}, 
